@@ -1,0 +1,30 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
+Route::middleware(['detect.bot','update.leave_time'])->group(function () {
+    Route::get('/login', function () {
+        return view('login');
+    });
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
+});
+
+Route::get('/thong-ke-truy-cap', function () {
+    $listData = \App\Models\VisitorLogsModel::orderBy('created_at','desc')->paginate(20);
+
+    return view('access_statistics',compact('listData'));
+});
