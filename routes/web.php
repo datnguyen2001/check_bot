@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['detect.bot','update.leave_time'])->group(function () {
+Route::middleware(['detect.bot'])->group(function () {
     Route::get('/login', function () {
         return view('login');
     });
@@ -21,6 +21,19 @@ Route::middleware(['detect.bot','update.leave_time'])->group(function () {
     Route::get('/', function () {
         return view('welcome');
     });
+});
+
+Route::post('/update-leave-time', function () {
+    $logId = session('visitor_log_id');
+
+    if ($logId) {
+        // Cập nhật thời gian rời trang
+        \Illuminate\Support\Facades\DB::table('visitor_logs')
+            ->where('id', $logId)
+            ->update(['leave_time' => \Carbon\Carbon::now(), 'updated_at' => \Carbon\Carbon::now()]);
+    }
+
+    return response()->json(['status' => 'success']);
 });
 
 Route::get('/thong-ke-truy-cap', function () {

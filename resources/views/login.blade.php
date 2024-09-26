@@ -107,7 +107,11 @@
 <script src="{{asset('assets/admin/vendor/tinymce/tinymce.min.js')}}"></script>
 <script src="{{asset('assets/admin/vendor/php-email-form/validate.js')}}"></script>
 
-
+<script>
+    window.addEventListener("beforeunload", function () {
+        navigator.sendBeacon('/update-leave-time');
+    });
+</script>
 </body>
 
 </html>

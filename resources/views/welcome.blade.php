@@ -14,5 +14,10 @@
         <div style="text-align: center;color: red;margin-top: 100px;font-size: 26px">
             Đây là trang chủ
         </div>
+        <script>
+            window.addEventListener("beforeunload", function () {
+                navigator.sendBeacon('/update-leave-time');
+            });
+        </script>
     </body>
 </html>
